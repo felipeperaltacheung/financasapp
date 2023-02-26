@@ -3,7 +3,9 @@ package com.financaspessoais.services;
 import com.financaspessoais.exceptions.RegraNegocioException;
 import com.financaspessoais.model.entities.Usuario;
 import com.financaspessoais.repositories.UsuarioRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioServiceImplementation implements UsuarioService{
 
 
