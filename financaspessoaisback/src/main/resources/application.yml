@@ -1,1 +1,26 @@
+spring:
+  #  profiles:
+  #    active: application-dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/financas
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_USERPASS:docker}
+
+
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: true
+    database: postgresql
+  sql:
+    init:
+      mode: always
+      platform: postgres
 
