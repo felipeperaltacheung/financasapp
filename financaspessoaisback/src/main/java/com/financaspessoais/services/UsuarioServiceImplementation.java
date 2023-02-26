@@ -1,5 +1,6 @@
 package com.financaspessoais.services;
 
+import com.financaspessoais.exceptions.RegraNegocioException;
 import com.financaspessoais.model.entities.Usuario;
 import com.financaspessoais.repositories.UsuarioRepository;
 
@@ -24,6 +25,9 @@ public class UsuarioServiceImplementation implements UsuarioService{
 
     @Override
     public void validarEmail(String email) {
-
+        boolean existe = usuarioRepository.existsByEmail(email);
+        if(existe) {
+            throw new RegraNegocioException("Ja existe um usuario cadastrado com este email");
+        }
     }
 }
