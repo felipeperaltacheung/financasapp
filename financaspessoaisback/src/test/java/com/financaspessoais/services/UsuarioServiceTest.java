@@ -7,17 +7,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class UsuarioServiceTest {
 
     UsuarioService usuarioService;
+    @MockBean
     UsuarioRepository usuarioRepository;
 
     @Before
     public void setup(){
-        usuarioRepository = Mockito.mock(UsuarioRepository.class);
         usuarioService = new UsuarioServiceImplementation(usuarioRepository);
     }
 
