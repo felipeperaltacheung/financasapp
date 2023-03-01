@@ -1,11 +1,13 @@
 package com.financaspessoais.services;
 
+import com.financaspessoais.exceptions.ErroAutenticacao;
 import com.financaspessoais.exceptions.RegraNegocioException;
 import com.financaspessoais.model.entities.Usuario;
 import com.financaspessoais.repositories.UsuarioRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.assertj.core.api.Assertions;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,6 +41,30 @@ public class UsuarioServiceTest {
 
         //verificacao
         Assertions.assertThat(result).isNotNull();
+
+    }
+
+    @Test(expected = ErroAutenticacao.class)
+    public void deveLancarErroQuandoASenhaNaoBater(){
+
+        String senha = "senha";
+
+        Usuario usuario = Usuario.builder().email("email@email.com").senha(senha).id(1L).build();
+
+        Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(usuario));
+
+        usuarioService.autenticar("email@email.com", "123");
+
+
+    }
+
+    @Test(expected = ErroAutenticacao.class)
+    public void deveLancarErroQuandoNaoEncontrarUsuarioCadastradoComEmailInformado(){
+        //cenario
+        Mockito.when(usuarioRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.empty());
+
+        //acao
+        usuarioService.autenticar("email@email.com", "senha");
 
     }
 
